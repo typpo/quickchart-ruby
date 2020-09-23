@@ -1,5 +1,5 @@
 # quickchart-ruby
-[[![Gem](https://img.shields.io/gem/v/quickchart)]](https://rubygems.org/gems/quickchart)
+<a href="https://rubygems.org/gems/quickchart"><img alt="QuickChart Gem" src="https://img.shields.io/gem/v/quickchart"></a>
 
 A Ruby client for the [quickchart.io](https://quickchart.io/) chart image API.
 
@@ -55,7 +55,7 @@ The URLs will render an image of a chart:
 
 ## Creating the chart object
 
-The `QuickChart` class constructor accepts the following parameters:
+The `QuickChart` class constructor accepts the following parameters.  `config` is the only required parameter, the rest are optional:
 
 ### config: hash or string (required)
 The actual Chart.js chart configuration.
