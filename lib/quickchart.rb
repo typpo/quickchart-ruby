@@ -10,7 +10,8 @@ class QuickChart
                 :background_color,
                 :device_pixel_ratio,
                 :format,
-                :key
+                :key,
+                :base_url
 
   def initialize(
     config,
@@ -19,7 +20,8 @@ class QuickChart
     background_color: '#ffffff',
     device_pixel_ratio: 1.0,
     format: 'png',
-    key: nil
+    key: nil,
+    base_url: 'https://quickchart.io'
   )
     @config = config
     @width = width
@@ -28,6 +30,7 @@ class QuickChart
     @device_pixel_ratio = device_pixel_ratio
     @format = format
     @key = key
+    @base_url = base_url
   end
 
   def get_url
@@ -42,13 +45,13 @@ class QuickChart
     params['key'] = @key if @key
 
     encoded = URI.encode_www_form(params)
-    return 'https://quickchart.io/chart?%s' % encoded
+    "#{@base_url}/chart?#{encoded}"
   end
 
   def _http_post(path)
     spec = Gem.loaded_specs['quickchart']
     version = spec ? spec.version.to_s : 'unknown'
-    request_headers = { 'user-agent' => 'quickchart-ruby/%s' % version }
+    request_headers = { 'user-agent' => "quickchart-ruby/#{version}" }
 
     params = {
       c: @config.is_a?(String) ? @config : @config.to_json,
@@ -60,27 +63,25 @@ class QuickChart
     }
     params['key'] = @key if @key
 
-    uri = URI('https://quickchart.io%s' % path)
+    uri = URI("#{@base_url}#{path}")
     https = Net::HTTP.new(uri.host, uri.port)
     https.use_ssl = true
     req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
     req.body = params.to_json
 
-    return https.request(req)
+    https.request(req)
   end
 
   def get_short_url
     res = _http_post('/chart/create')
-    if (200..300).cover? res.code.to_i
-      return JSON.parse(res.body)['url']
-    else
-      raise 'Request error: %s' % res.body
-    end
+    raise "Request error: #{res.body}" unless (200..300).cover? res.code.to_i
+
+    JSON.parse(res.body)['url']
   end
 
   def to_blob
     res = _http_post('/chart')
-    return res.body
+    res.body
   end
 
   def to_file(path)
