@@ -1,7 +1,6 @@
+require 'cgi'
 require 'json'
 require 'net/http'
-require 'rubygems'
-require 'uri'
 
 class QuickChart
   attr_accessor :config,
@@ -44,7 +43,8 @@ class QuickChart
     }
     params['key'] = @key if @key
 
-    encoded = URI.encode_www_form(params)
+    encoded = params.to_a.map { |x| "#{x[0]}=#{CGI.escape(x[1].to_s)}" }.join('&')
+
     "#{@base_url}/chart?#{encoded}"
   end
 
