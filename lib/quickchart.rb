@@ -9,6 +9,7 @@ class QuickChart
                 :background_color,
                 :device_pixel_ratio,
                 :format,
+                :version,
                 :key,
                 :base_url
 
@@ -19,6 +20,7 @@ class QuickChart
     background_color: '#ffffff',
     device_pixel_ratio: 1.0,
     format: 'png',
+    version: nil,
     key: nil,
     base_url: 'https://quickchart.io'
   )
@@ -29,6 +31,7 @@ class QuickChart
     @device_pixel_ratio = device_pixel_ratio
     @format = format
     @key = key
+    @version = version
     @base_url = base_url
   end
 
@@ -42,6 +45,7 @@ class QuickChart
       f: @format
     }
     params['key'] = @key if @key
+    params['v'] = @version if @version
 
     encoded = params.to_a.map { |x| "#{x[0]}=#{CGI.escape(x[1].to_s)}" }.join('&')
 
@@ -62,6 +66,7 @@ class QuickChart
       f: @format
     }
     params['key'] = @key if @key
+    params['v'] = @version if @version
 
     uri = URI("#{@base_url}#{path}")
     https = Net::HTTP.new(uri.host, uri.port)
