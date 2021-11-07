@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'quickchart'
-  spec.version = '1.1.1'
+  spec.version = '1.2.0'
   spec.authors = ['Ian Webster']
   spec.email = %w[support@quickchart.io]
 
