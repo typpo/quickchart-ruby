@@ -75,6 +75,12 @@ The background color of the chart. Any valid HTML color works. Defaults to #ffff
 ### device_pixel_ratio: float
 The device pixel ratio of the chart. This will multiply the number of pixels by the value. This is usually used for retina displays. Defaults to 1.0.
 
+### key: string
+QuickChart API key (not required)
+
+### version: string
+Sets the Chart.js version to use (e.g. 2.9.4 or 3.8.0). Valid options are described in the [documentation](https://quickchart.io/documentation/#parameters).
+
 ## Getting URLs
 
 There are two ways to get a URL for your chart object.
