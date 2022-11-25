@@ -79,7 +79,7 @@ The device pixel ratio of the chart. This will multiply the number of pixels by 
 QuickChart API key (not required)
 
 ### version: string
-Sets the Chart.js version to use (e.g. 2.9.4 or 3.8.0). Valid options are described in the [documentation](https://quickchart.io/documentation/#parameters).
+Sets the Chart.js version to use (e.g. 2.9.4 or 3.8.0). Valid options are described in the [documentation](https://quickchart.io/documentation/usage/parameters/#version).
 
 ## Getting URLs
 
