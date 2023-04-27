@@ -69,12 +69,12 @@ class QuickChart
     params['v'] = @version if @version
 
     uri = URI("#{@base_url}#{path}")
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.instance_of? URI::HTTPS
     req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
     req.body = params.to_json
 
-    https.request(req)
+    http.request(req)
   end
 
   def get_short_url
